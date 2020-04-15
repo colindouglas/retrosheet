@@ -4,9 +4,7 @@ Import Retrosheet data as a structured R object
 `retrosheet` is an R package that downloads and parses the single-season event, gamelog, roster, and schedule
 files from http://www.retrosheet.org into structured R objects for further analysis.
 
-**Note:** As of retrosheet 1.1.0, this repo contains the version available on CRAN. Previous versions can be found at:
-
-https://github.com/rmscriven/retrosheet
+**Note:** As of retrosheet 1.1.0, this repo contains the version available on CRAN. Older versions can be found [here](https://github.com/rmscriven/retrosheet).
 
 ## Installation
 `retrosheet` can be installed from CRAN, or development versions installed from Github.
