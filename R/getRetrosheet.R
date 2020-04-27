@@ -115,14 +115,12 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
             schedSplit <- match.arg(schedSplit, c("Date", "HmTeam", "TimeOfDay"))
             out <- split(out, out[[schedSplit]])
         }
-        closeAllConnections()
         return(out)
     }
     if(type == "game") {
         zcon <- unz(tmp, filename = fname)
         out <- read.csv(zcon, header = FALSE, col.names = retrosheetFields$gamelog,
             stringsAsFactors = stringsAsFactors)
-        closeAllConnections()
         return(out)
     }
 
@@ -135,13 +133,12 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
             o
         })
         out <- setNames(read, substr(rosFiles, 1L, 3L))
-        closeAllConnections()
         return(out)
     }
     zcon <- unz(tmp, filename = paste0("TEAM", year))
     allTeams <- readLines(zcon)
+    close(zcon)
     team <- match.arg(team, substr(allTeams, 1L, 3L))
-    closeAllConnections()
 
     # function for single game parsing
     doGame <- function(x) {
@@ -167,10 +164,10 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
     fnm <- grep(rgx, fname, value = TRUE, fixed = TRUE)
     zcon <- unz(tmp, filename = fnm)
     r <- readLines(zcon)
+    close(zcon)
     g <- grepl("^id", r)
     sr <- unname(split(gsub("\"", "", r), cumsum(g)))
     res <- lapply(sr, doGame)
-    closeAllConnections()
     res
 }
 

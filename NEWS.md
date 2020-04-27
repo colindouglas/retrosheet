@@ -1,3 +1,6 @@
+# retrosheet 1.1.2
+  * Replace kludge-y `closeAllConnections()` with `close()` calls to specific connections [#1](https://github.com/colindouglas/retrosheet/issues/1)
+
 # retrosheet 1.1.1
   * Added `get_retrosheet()`, a wrapper for `getRetrosheet()` that takes the same arguments and returns the same data, except coercing matrices into tibbles.
   * Updated tests to account for more data being added to retrosheet.org (whoops)
