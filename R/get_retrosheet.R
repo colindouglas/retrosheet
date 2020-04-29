@@ -1,12 +1,12 @@
 #'
-#' Import single-season retrosheet data as tibbles
+#' Import single-season retrosheet data as data frames
 #'
 #' This function is a wrapper for getRetrosheet(). It downloads and parses data from
 #' \url{http://www.retrosheet.org} for the game-log, event, (play-by-play), roster, and schedule files.
-#' While getRetrosheet() returns a list of matrices, this function returns an otherwise-identical list of tibbles.
+#' While getRetrosheet() returns a list of matrices, this function returns an equivalent list of dataframes.
 #' It takes the same arguments, and can act as a drop-in replacement.
 #'
-#' @param ... Arguments passed to `getRetrosheet()`
+#' @param ... Arguments passed to `getRetrosheet()`. `stringsAsFactors` argument is always FALSE, and will warn if passed as TRUE
 #'
 #' @return The following return values are possible for the given \code{type}
 #' \itemize{
@@ -37,40 +37,51 @@
 #' get_retrosheet("play", 2012, "SFN")
 #' }
 #'
-#' @importFrom purrr map map_dfc
-#' @importFrom tibble as_tibble
-#' @importFrom lubridate ymd
 #' @export
 
 get_retrosheet <- function(...) {
 
+    dots <- list(...)
+
+    if (!is.null(dots[["stringsAsFactors"]])) {
+        if (dots[["stringsAsFactors"]]) {
+            warning("get_retrosheet() forces stringsAsFactors = FALSE. For stringsAsFactors = TRUE, use getRetrosheet() instead")
+        }
+    }
+
     response <- getRetrosheet(...)
 
-    matrix_to_tibble <- function(x) {
+    matrix_to_df <- function(x) {
 
         # If the response is a single matrix, convert it to a tibble
-        if (is.matrix(x)) x <- as_tibble(x)
+        if (is.matrix(x)) x <- as.data.frame(x, stringsAsFactors = FALSE)
 
         # If the response is a dataframe (or was a matrix and has been converted to a dataframe)
         if (is.data.frame(x)) {
-            x <- as_tibble(x)
-            x[x == ""] <- NA  # Convert the empty strings to NA
-            out <- map_dfc(x, ~ type.convert(., as.is = TRUE))  # Make a reasonable guess at each column type
 
-            # Make the Date column date-type
-            if ("Date" %in% colnames(out)) {
-                out$Date <- ymd(out$Date)
+            out <- lapply(x, function(x) {
+                x <- type.convert(x, as.is = TRUE)  # Aggressive guess the column type
+                if (is.character(x) | is.factor(x)) x[x == ""] <- NA # Turn all the empty strings to NAs
+                return(x)
+            })
+
+            # If there's a date column, make sure it's Date-type
+            if ("Date" %in% names(out)) {
+                out$Date <- as.character(out$Date)
+                out$Date <- as.Date(out$Date, tryFormats = c("%Y-%m-%d", "%Y%m%d"))
             }
+
+            out <- as.data.frame(out, stringsAsFactors = FALSE)
             return(out)
 
         # If the response is a list of objects, re-apply this function to all of the objects in the list
         } else if (length(x) > 1) {
-            map(x, matrix_to_tibble)
+           lapply(x, matrix_to_df)
         } else {
             return(x) # If the response is not a list, matrix, or df, return the input
         }
     }
 
-    matrix_to_tibble(response)
+    matrix_to_df(response)
 
 }

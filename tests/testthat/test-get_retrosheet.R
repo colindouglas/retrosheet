@@ -73,17 +73,21 @@ test_that("Play downloading works", {
 test_that("Data is cleaned up as expected", {
 
     game <- get_retrosheet("game", 2012, cache = "testdata")
-    expect_true("tbl_df" %in% class(game))
+    expect_true("data.frame" %in% class(game))
     expect_equal(class(game$Date), "Date")  # Dates are correct data type
     expect_false(any(game$Completion == "", na.rm = TRUE))  # Confirm that empty strings are converted to NAs
     expect_false(any(game$Forfeit == "", na.rm = TRUE))  # Confirm that empty strings are converted to NAs
     expect_false(any(game$Protest == "", na.rm = TRUE))  # Confirm that empty strings are converted to NAs
 
     schedule <- get_retrosheet(type = "schedule", year = 1995, cache = "testdata")
-    expect_true("tbl_df" %in% class(schedule))
-    expect_equal(class(schedule$Date), "Date")  # Confirm that dates are the right type
-    expect_equal(class(schedule$GameNo), "integer")
+    expect_true("data.frame" %in% class(schedule))
+    expect_equal(class(schedule$Date), "Date")  # Confirm that dates are Dates
+    expect_equal(class(schedule$GameNo), "integer")  # Confirm that simple data (esp game numbers) are integers
 
+    # Warn if trying to use stringsAsFactors
+    expect_warning(
+        get_retrosheet("schedule", 1995, schedSplit = "TimeOfDay", stringsAsFactors = TRUE, cache = "testdata")
+        )
 })
 
 # Delete any previously cached data
