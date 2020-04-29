@@ -13,6 +13,7 @@ test_that("Caching works", {
     game_2 <- get_retrosheet("game", 2012)
     play_2 <- get_retrosheet("play", 2012, "SFN")
 
+    # With and without caching should always give you the same thing
     expect_equal(schedule_1, schedule_2)
     expect_equal(schedule_1, schedule_1a)
     expect_equal(roster_1, roster_2)
@@ -27,12 +28,17 @@ test_that("Caching works", {
 test_that("Schedule downloading works", {
 
     schedule <- get_retrosheet(type = "schedule", year = 1995, cache = "testdata")
+    schedule_unnamed <- get_retrosheet("schedule", 1995, cache = "testdata")
     schedule_splits <- get_retrosheet(type = "schedule", year = 1995, schedSplit = "TimeOfDay")
+    schedule_splits_some_named <- get_retrosheet("schedule", 1995, schedSplit = "TimeOfDay")
 
     expect_equal(nrow(schedule), 2016)
+
+    expect_equal(schedule_splits, schedule_splits_some_named)
     expect_equal(length(schedule_splits), 3)
     expect_equal(nrow(schedule_splits[[3]]), 1355)
     expect_equal(sum(unlist(lapply(schedule_splits, nrow), recursive = TRUE)), nrow(schedule))
+    expect_equal(schedule, schedule_unnamed)  # Confirm that using named and unnamed arguments returns the same thing
 
 })
 
@@ -61,6 +67,22 @@ test_that("Play downloading works", {
     expect_equal(nrow(play[[1]]$sub), 4)
     expect_equal(nrow(play[[1]]$start), 18)
     expect_equal(nrow(play[[1]]$info), 26)
+
+})
+
+test_that("Data is cleaned up as expected", {
+
+    game <- get_retrosheet("game", 2012, cache = "testdata")
+    expect_true("tbl_df" %in% class(game))
+    expect_equal(class(game$Date), "Date")  # Dates are correct data type
+    expect_false(any(game$Completion == "", na.rm = TRUE))  # Confirm that empty strings are converted to NAs
+    expect_false(any(game$Forfeit == "", na.rm = TRUE))  # Confirm that empty strings are converted to NAs
+    expect_false(any(game$Protest == "", na.rm = TRUE))  # Confirm that empty strings are converted to NAs
+
+    schedule <- get_retrosheet(type = "schedule", year = 1995, cache = "testdata")
+    expect_true("tbl_df" %in% class(schedule))
+    expect_equal(class(schedule$Date), "Date")  # Confirm that dates are the right type
+    expect_equal(class(schedule$GameNo), "integer")
 
 })
 

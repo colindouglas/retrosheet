@@ -4,14 +4,10 @@
 \alias{get_retrosheet}
 \title{Import single-season retrosheet data as tibbles}
 \usage{
-get_retrosheet(type, ...)
+get_retrosheet(...)
 }
 \arguments{
-\item{type}{character.  This argument can take on either of "game" for
-game-logs, "play" for play-by-play (a.k.a. event) data, "roster" for
-team rosters, or "schedule" for the game schedule for the given year.}
-
-\item{...}{Further arguments passed to getRetrosheet()}
+\item{...}{Arguments passed to `getRetrosheet()`}
 }
 \value{
 The following return values are possible for the given \code{type}
@@ -29,7 +25,7 @@ for the named team for the given year, as a data frame.
 This function is a wrapper for getRetrosheet(). It downloads and parses data from
 \url{http://www.retrosheet.org} for the game-log, event, (play-by-play), roster, and schedule files.
 While getRetrosheet() returns a list of matrices, this function returns an otherwise-identical list of tibbles.
-It takes the same arguments, and mcan act as a drop-in replacement.
+It takes the same arguments, and can act as a drop-in replacement.
 }
 \examples{
 \donttest{
@@ -37,7 +33,7 @@ It takes the same arguments, and mcan act as a drop-in replacement.
 get_retrosheet("schedule", 1995)
 
 ## get the same schedule, split by time of day
-get_retrosheet("schedule", 1995, schedule_split = "TimeOfDay")
+get_retrosheet("schedule", 1995, schedSplit = "TimeOfDay")
 
 ## get the roster data for the 1995 season, listed by team
 get_retrosheet("roster", 1995)

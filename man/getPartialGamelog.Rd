@@ -5,7 +5,9 @@
 \alias{getPartialGamelog}
 \alias{gamelogFields}
 \title{Partial parser for game-log files}
-\format{An object of class \code{character} of length 161.}
+\format{
+An object of class \code{character} of length 161.
+}
 \usage{
 getPartialGamelog(year, glFields, date = NULL)
 
