@@ -58,12 +58,8 @@ get_retrosheet <- function(...) {
 
         # If the response is a dataframe (or was a matrix and has been converted to a dataframe)
         if (is.data.frame(x)) {
+            out <- lapply(x, type.convert, na.strings = c("", "NA"), as.is = TRUE)
 
-            out <- lapply(x, function(x) {
-                x <- type.convert(x, as.is = TRUE)  # Aggressive guess the column type
-                if (is.character(x) | is.factor(x)) x[x == ""] <- NA # Turn all the empty strings to NAs
-                return(x)
-            })
 
             # If there's a date column, make sure it's Date-type
             if ("Date" %in% names(out)) {
