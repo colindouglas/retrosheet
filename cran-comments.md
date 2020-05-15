@@ -1,17 +1,20 @@
 A minor revision to fix some poor connection handling
 
 ## Test environments
-(Not yet: * xubuntu 19.10 (local), R 3.6.3 and devel)
-(Not yet: * Windows 10 (virtual machine), R 3.6.3)
-(Not yet: * Windows Server 2008 R2 SP1 (R-Hub), R-devel, 32/64 bit)
+(via Github Actions)
+
+windows-latest, r: 'release'
+macOS-latest, r: 'release'
+macOS-latest, r: 'devel'
+ubuntu-16.04, r: 'release'
 
 ## R CMD check results 
-
-(not yet)
-
+Duration: 35.9s
+0 errors ✓ | 0 warnings ✓ | 0 notes ✓
+R CMD check succeeded
 
 ## R-Hub Notes:
-(not yet)
+0 errors ✓ | 0 warnings ✓ | 0 notes ✓
     
 ## Downstream dependencies
-(not yet)
+None

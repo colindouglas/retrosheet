@@ -22,7 +22,6 @@ URL: http://github.com/colindouglas/retrosheet
 Depends: R (>= 2.10)
 License: GPL (>= 2)
 Imports: xml2 (>= 1.2.2),
-    data.table (>= 1.9.4),
     stringi (>= 0.4-1),
     httr (>= 1.4.1),
     stringr (>= 1.4.0),

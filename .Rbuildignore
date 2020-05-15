@@ -4,3 +4,4 @@ tests/testthat/testdata
 cran-comments.md
 ^CRAN-RELEASE$
 ^\.github$
+README.Rmd

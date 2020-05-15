@@ -48,7 +48,7 @@
 #' getRetrosheet("play", 2012, "SFN")
 #' }
 #'
-#' @importFrom httr http_error GET write_disk
+#' @importFrom httr http_error RETRY write_disk timeout
 #' @importFrom stringi stri_split_fixed
 #' @importFrom stats setNames
 #' @importFrom utils read.csv unzip
@@ -74,7 +74,7 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
         if(!http_error(fullPath)) {
             tmp <- tempfile()
             on.exit(unlink(tmp))
-            GET(fullPath, write_disk(tmp, overwrite=TRUE))
+            RETRY("GET", url = fullPath, write_disk(tmp, overwrite=TRUE), timeout(15))
         } else {
             stop(sprintf("'%s' is not a valid url or path", fullPath))
         }
@@ -95,8 +95,7 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
             }
             # Download the file to the folder
             message("Caching to: ", fullPath)
-            GET(remotePath, write_disk(fullPath, overwrite=TRUE))
-            #download.file(remotePath, destfile = fullPath, ...)
+            RETRY("GET", url = remotePath, write_disk(fullPath, overwrite=TRUE), timeout(15))
         } else {
             message("Using local cache: ", fullPath)
         }

@@ -10,7 +10,7 @@
 #' @param date One of either NULL (the default), or a single four-digit
 #' character string identifying the date 'mmdd'
 #'
-#' @importFrom httr GET write_disk
+#' @importFrom httr RETRY write_disk timeout
 #'
 #' @export
 #'
@@ -49,7 +49,7 @@ getPartialGamelog <- function(year, glFields, date = NULL) {
     ## download the file
     tmp <- tempfile()
     on.exit(unlink(tmp))
-    GET(full, write_disk(tmp, overwrite=TRUE))
+    RETRY("GET", url = full, write_disk(tmp, overwrite=TRUE), timeout(15))
 
     ## extract the text file
     fname <- unzip(tmp, list = TRUE)$Name

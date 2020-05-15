@@ -1,10 +1,10 @@
 on:
   push:
-    branches:
-      - master
+    paths:
+      - R/*.R
   pull_request:
-    branches:
-      - master
+    paths:
+      - R/*.R
 
 name: R-CMD-check
 

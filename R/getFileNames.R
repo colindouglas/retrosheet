@@ -14,7 +14,7 @@
 #' \donttest{
 #' getFileNames()
 #' }
-#' @importFrom httr GET content
+#' @importFrom httr content RETRY timeout
 #' @importFrom xml2 read_html
 #' @importFrom rvest html_attr html_nodes
 #' @importFrom stringr str_extract
@@ -29,7 +29,7 @@ getFileNames <- function() {
     full <- paste0("https://www.retrosheet.org/", paths)
 
     docs <- lapply(full, function(x) {
-        content <- GET(x)
+        content <- RETRY("GET", url = x, timeout(15))
         read_html(content, asText = TRUE)
     })
 
