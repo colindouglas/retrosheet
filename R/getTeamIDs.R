@@ -14,7 +14,6 @@
 #' \code{type.convert(substr(getFileNames()$event, 1L, 4L))}
 #'
 #' @importFrom httr http_error GET write_disk
-#' @importFrom data.table fread
 #' @export
 #'
 #' @examples \donttest{
@@ -38,8 +37,9 @@ getTeamIDs <- function(year) {
     fname <- paste0("TEAM", year)
     unzip(tmp, files = fname)
     on.exit(unlink(fname), add = TRUE)
-    read <- suppressWarnings(fread(fname, header = FALSE, drop = 2:3))
+
+    read <- suppressWarnings(read.csv(fname, header = FALSE))[c(1, 4)]
+
     out <- structure(read[[1L]], .Names = read[[2L]])
-    closeAllConnections()
     out
 }

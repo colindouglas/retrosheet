@@ -10,8 +10,6 @@
 #' @param date One of either NULL (the default), or a single four-digit
 #' character string identifying the date 'mmdd'
 #'
-#' @importFrom data.table fread
-#' @importFrom data.table setnames
 #' @importFrom httr GET write_disk
 #'
 #' @export
@@ -51,7 +49,6 @@ getPartialGamelog <- function(year, glFields, date = NULL) {
     ## download the file
     tmp <- tempfile()
     on.exit(unlink(tmp))
-    #download.file(full, destfile = tmp, ...)
     GET(full, write_disk(tmp, overwrite=TRUE))
 
     ## extract the text file
@@ -63,9 +60,11 @@ getPartialGamelog <- function(year, glFields, date = NULL) {
     sel <- union(1L, sort(match(glFields, retrosheetFields$gamelog)))
 
     ## read the data
-    out <- if(is.null(date)) {
+    if(is.null(date)) {
 
-        fread(fname, select = sel, header = FALSE)
+        #out <- fread(fname, select = sel, header = FALSE)
+        out <- read.csv(fname, header = FALSE)
+        out <- out[sel]
 
     } else if(is.character(date)) {
 
@@ -78,16 +77,13 @@ getPartialGamelog <- function(year, glFields, date = NULL) {
         }
 
         ## read the file - selecting specified date and columns
-        suppressWarnings(fread(fname, select = sel, header = FALSE,
-            skip = min(wh)-1L, nrows = diff(range(wh))))
-
+        readin <- read.csv(fname, header = FALSE)
+        out <- readin[readin$V1 == date, sel]
     }
 
     ## set the names
-    setnames(out, retrosheetFields$gamelog[sel])
-
+    names(out) <- retrosheetFields$gamelog[sel]
     ## return the table
-    closeAllConnections()
     out
 }
 
