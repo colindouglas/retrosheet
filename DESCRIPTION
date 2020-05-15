@@ -1,7 +1,7 @@
 Package: retrosheet
 Type: Package
 Title: Import Professional Baseball Data from 'Retrosheet'
-Version: 1.1.2
+Version: 1.1.3.9000
 Authors@R: 
   c(person(given = "Colin",
            family = "Douglas",
