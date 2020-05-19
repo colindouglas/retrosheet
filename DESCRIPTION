@@ -25,8 +25,7 @@ Imports: xml2 (>= 1.2.2),
     stringi (>= 0.4-1),
     httr (>= 1.4.1),
     stringr (>= 1.4.0),
-    rvest (>= 0.3.5),
-    lubridate (>= 1.7.4)
+    rvest (>= 0.3.5)
 Note: NOTICE regarding the transfer of data from Retrosheet:
     The information used here was obtained free of charge from
     and is copyrighted by Retrosheet. Interested parties may

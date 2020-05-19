@@ -1,0 +1,39 @@
+---
+title: "RMarkdown Test File"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(retrosheet)
+```
+
+## getTeamIDs and getParkIDS
+Here are the baseball teams that were competing in 2012.
+```{r getTeamIDs}
+getTeamIDs(2012)
+```
+
+### Inline getParkIDs
+Some of the parks they played in were: `r paste(head(getParkIDs()$NAME, 10), collapse =", ")`
+
+## getPartialGamelog
+Here are the games that happened on April Fool's Day, 2018.
+
+```{r get partial gamelog, rows.print = 15}
+    getPartialGamelog(glFields=grep("HR|RBI|Park", gamelogFields, value = TRUE), 
+                                 date = "20180401")
+```
+
+
+## getRetrosheet
+These are the bulky ones, I just cut and paste them from the test file.
+```{r getRetrosheet tests}
+    schedule_1 <- getRetrosheet("schedule", 1995, cache = "testdata")
+    schedule_1a <- getRetrosheet("schedule", 1995, cache = "testdata/") # Test with trailing slash
+    roster_1 <- getRetrosheet("roster", 1995, cache = "testdata")
+    game_1 <- getRetrosheet("game", 2012, cache = "testdata")
+    play_1 <- getRetrosheet("play", 2012, "SFN", cache = "testdata")
+```
+
+This is the end of the testing markdown file
