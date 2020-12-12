@@ -38,7 +38,7 @@ getTeamIDs <- function(year) {
     unzip(tmp, files = fname)
     on.exit(unlink(fname), add = TRUE)
 
-    read <- suppressWarnings(read.csv(fname, header = FALSE))[c(1, 4)]
+    read <- suppressWarnings(read.csv(fname, header = FALSE, stringsAsFactors = FALSE))[c(1, 4)]
 
     out <- structure(read[[1L]], .Names = read[[2L]])
     out

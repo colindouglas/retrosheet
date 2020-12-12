@@ -48,7 +48,7 @@ for the named team for the given year, as a data frame.
 }
 }
 \description{
-This function downloads and parses data from \url{http://www.retrosheet.org}
+This function downloads and parses data from \url{https://www.retrosheet.org}
 for the game-log, event, (play-by-play), roster, and schedule files.
 }
 \examples{

@@ -9,7 +9,7 @@ status](https://github.com/colindouglas/retrosheet/workflows/R-CMD-check/badge.s
 [![License:
 MIT](https://img.shields.io/badge/license-GPL%20(%3E%3D%202)-blue.svg)](https://opensource.org/licenses/GPL-2.0)
 [![GitHub
-commit](https://img.shields.io/github/last-commit/colindouglas/retrosheet)](https://github.com/colindouglas/retrosheet/commit/master)
+commit](https://img.shields.io/github/last-commit/colindouglas/retrosheet)](https://github.com/colindouglas/retrosheet/commit/main)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-week/retrosheet)](https://cran.r-project.org/package=retrosheet)
 
 <!-- badges: end -->
@@ -17,7 +17,7 @@ commit](https://img.shields.io/github/last-commit/colindouglas/retrosheet)](http
 Import Retrosheet data as a structured R object `retrosheet` is an R
 package that downloads and parses the single-season event, gamelog,
 roster, and schedule files from
-<a href="http://www.retrosheet.org" class="uri">http://www.retrosheet.org</a>
+<a href="https://www.retrosheet.org" class="uri">http://wwws.retrosheet.org</a>
 into structured R objects for further analysis.
 
 **Note:** As of retrosheet 1.1.0, this repo contains the version

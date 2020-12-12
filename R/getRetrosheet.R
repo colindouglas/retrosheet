@@ -1,7 +1,7 @@
 #'
 #' Import single-season retrosheet data as a structured R object
 #'
-#' This function downloads and parses data from \url{http://www.retrosheet.org}
+#' This function downloads and parses data from \url{https://www.retrosheet.org}
 #' for the game-log, event, (play-by-play), roster, and schedule files.
 #'
 #' @param type character.  This argument can take on either of "game" for

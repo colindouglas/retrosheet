@@ -23,7 +23,7 @@ for the named team for the given year, as a data frame.
 }
 \description{
 This function is a wrapper for getRetrosheet(). It downloads and parses data from
-\url{http://www.retrosheet.org} for the game-log, event, (play-by-play), roster, and schedule files.
+\url{https://www.retrosheet.org} for the game-log, event, (play-by-play), roster, and schedule files.
 While getRetrosheet() returns a list of matrices, this function returns an equivalent list of dataframes.
 It takes the same arguments, and can act as a drop-in replacement.
 }

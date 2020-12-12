@@ -1,3 +1,8 @@
+# retrosheet 1.1.3
+  * Updated tests to account for `stringsAsFactors = FALSE`
+  * Switched to making requests via https to align with retrosheet.org changeover
+  * Updated `README.md` to account for `master` to `main` change in repo
+
 # retrosheet 1.1.2
   * Replaced kludge-y `closeAllConnections()` with `close()` calls to specific connections ([#1](https://github.com/colindouglas/retrosheet/issues/1))
   * Added some rudimentary data cleanup to the `get_retrosheet()` wrapper function

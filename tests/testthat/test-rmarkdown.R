@@ -1,3 +1,5 @@
+library(rmarkdown)
+
 test_that("Can be used in rmarkdown", {
 
     # Borrowed from: https://stackoverflow.com/questions/32310399/testing-code-chunks-of-a-markdown-script

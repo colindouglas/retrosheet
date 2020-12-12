@@ -1,7 +1,7 @@
-A minor revision to address a bug when using the package with rmarkdown.
+A minor revision to improve tests and future-proof additional tests
 
 ## Test environments 
-* locally, xubuntu-20.02, R 4.0.0
+* locally, xubuntu-20.04, R 4.0.3
 * via Github Actions
     * windows-latest, r: 'release'
     * macOS-latest, r: 'release'

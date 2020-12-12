@@ -32,18 +32,22 @@ test_that("Schedule downloading works", {
     schedule <- getRetrosheet("schedule", 1995, cache = "testdata")
     schedule_splits <- getRetrosheet("schedule", 1995, schedSplit = "TimeOfDay")
 
-    expect_equal(nrow(schedule), 2016)
-    expect_equal(length(schedule_splits), 3)
-    expect_equal(nrow(schedule_splits[[3]]), 1355)
-    expect_equal(sum(unlist(lapply(schedule_splits, nrow), recursive = TRUE)), nrow(schedule))
+    # In 1995, there were 28 teams, each team played a 144 game schedule
+    expect_equal(nrow(schedule), 28 * 144 / 2)
+
+    # There were 601 day games, 60 evening games, and 1355 night games
+    expect_equal(sapply(schedule_splits, nrow), c(D = 601L, E = 60L, N = 1355L))
 
 })
 
 test_that("Roster downloading works", {
 
     roster <- getRetrosheet("roster", 1995, cache = "testdata")
+
+    # In 1995, there were 28 teams
     expect_equal(length(roster), 28)
-    expect_equal(nrow(roster[[1]]), 40)
+
+    # Toronto has 39 players on their roster
     expect_equal(nrow(roster$TOR), 39)
 
 })
@@ -51,19 +55,26 @@ test_that("Roster downloading works", {
 test_that("Game downloading works", {
 
     game <- getRetrosheet("game", 2012, cache = "testdata")
+
+    # Each "game" has 161 different attributes
     expect_equal(length(game), 161)
-    expect_equal(nrow(game), 2430)
+
+    # In 2012, there were 30 teams, each played 162 games (and each game has two teams)
+    expect_equal(nrow(game), 30 * 162 / 2)
 
 })
 
 test_that("Play downloading works", {
 
     play <- getRetrosheet("play", 2012, "SFN", cache = "testdata")
+
+    # SFN played 81 games in 2012
     expect_equal(length(play), 81)
-    expect_equal(nrow(play[[1]]$play), 68)
-    expect_equal(nrow(play[[1]]$sub), 4)
-    expect_equal(nrow(play[[1]]$start), 18)
-    expect_equal(nrow(play[[1]]$info), 26)
+
+    # In the first game of the year, there were...
+    expect_equal(nrow(play[[1]]$play), 68)     # 68 plays
+    expect_equal(nrow(play[[1]]$sub), 4)       # 4 substitutions
+    expect_equal(nrow(play[[1]]$start), 2 * 9) # 18 starters
 
 })
 

@@ -14,7 +14,7 @@
 
 getParkIDs <- function() {
 
-    path <- "http://www.retrosheet.org/parkcode.txt"
+    path <- "https://www.retrosheet.org/parkcode.txt"
 
     # Make a temp file
     tmp <- tempfile()
