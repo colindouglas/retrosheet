@@ -6,13 +6,13 @@ Authors@R:
   c(person(given = "Colin",
            family = "Douglas",
            role = c("aut", "cre", "cph"),
-           email = "colindouglas@gmail.com"),
+           email = "colin@douglas.science"),
     person(given = "Richard",
            family = "Scriven",
            role = c("aut", "cph"),
            email = "rmscriven@gmail.com"))
 Date: 2020-12-11
-Maintainer: Colin Douglas <colindouglas@gmail.com>
+Maintainer: Colin Douglas <colin@douglas.science>
 Description: A collection of tools to import and structure the (currently) single-season
     event, game-log, roster, and schedule data available from <https://www.retrosheet.org>.
     In particular, the event (a.k.a. play-by-play) files can be especially difficult to parse.
