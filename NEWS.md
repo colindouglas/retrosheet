@@ -1,3 +1,6 @@
+# retrosheet 1.1.4
+  * Updated tests to skip Rmarkdown tests on CRAN. Avoids pandoc dependency issues on Solaris and MacOS CRAN package checks.
+
 # retrosheet 1.1.3
   * Updated tests to account for `stringsAsFactors = FALSE`
   * Switched to making requests via https to align with retrosheet.org changeover

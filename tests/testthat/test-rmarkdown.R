@@ -1,6 +1,9 @@
 library(rmarkdown)
-
 test_that("Can be used in rmarkdown", {
+
+    # This test fails on systems without recent versions of Pandoc
+    # Thus it fails on the MacOS and Solaris CRAN check systems unless we skip this test
+    skip_on_cran()
 
     # Borrowed from: https://stackoverflow.com/questions/32310399/testing-code-chunks-of-a-markdown-script
 

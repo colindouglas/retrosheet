@@ -1,23 +1,19 @@
-A minor revision to future-proof tests and update the Retrosheet.org URLs to https. 
-
-Maintainer email in DESCRIPTION has been updated, maintainer remains unchanged.
+A minor revision to resolve CRAN Package Check errors arising from pandoc dependencies in tests.
 
 ## Test environments 
-* locally, ubuntu-20.04, R 4.0.3
-* via Github Actions
-    * windows-latest, r: 'release'
-    * macOS-latest, r: 'release'
-    * macOS-latest, r: 'devel'
-    * ubuntu-16.04, r: 'release'
-
+* locally, ubuntu-20.04, R 4.1.1
+* via R-Hub
+    * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+    * Ubuntu Linux 20.04.1 LTS, R-release, GCC
+    * Fedora Linux, R-devel, clang, gfortran
+    * Oracle Solaris 10, x86, 32 bit, R-release
+    * macOS 10.13.6 High Sierra, R-release, CRAN's setup
+    
 ## R CMD check results 
 0 errors ✓ | 0 warnings ✓ | 0 notes ✓
 
 ## R-Hub Notes:
-0 errors ✓ | 0 warnings ✓ | 1 note x
-
-New maintainer: Colin Douglas <colin@douglas.science>
-Old maintainer(s): Colin Douglas <colindouglas@gmail.com>
+0 errors ✓ | 0 warnings ✓ | 0 notes ✓
 
     
 ## Downstream dependencies
