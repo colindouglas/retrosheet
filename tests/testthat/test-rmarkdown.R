@@ -1,6 +1,8 @@
 library(rmarkdown)
 test_that("Can be used in rmarkdown", {
 
+    skip_if_offline(host = "retrosheet.org")
+
     # This test fails on systems without recent versions of Pandoc
     # Thus it fails on the MacOS and Solaris CRAN check systems unless we skip this test
     skip_on_cran()

@@ -1,4 +1,7 @@
 test_that("getPartialGamelog examples all work", {
+
+    skip_if_offline(host = "retrosheet.org")
+
     interesting_columns <- c("ParkID",
                              "VisHR", "VisRBI",
                              "HmHR", "HmRBI")

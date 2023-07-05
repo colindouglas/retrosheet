@@ -1,5 +1,7 @@
 test_that("Caching works", {
 
+    skip_if_offline(host = "retrosheet.org")
+
     # Delete any previously cached data
     unlink("testdata", recursive = TRUE)
 
@@ -29,6 +31,8 @@ test_that("Caching works", {
 
 test_that("Schedule downloading works", {
 
+    skip_if_offline(host = "retrosheet.org")
+
     schedule <- getRetrosheet("schedule", 1995, cache = "testdata")
     schedule_splits <- getRetrosheet("schedule", 1995, schedSplit = "TimeOfDay")
 
@@ -42,6 +46,8 @@ test_that("Schedule downloading works", {
 
 test_that("Roster downloading works", {
 
+    skip_if_offline(host = "retrosheet.org")
+
     roster <- getRetrosheet("roster", 1995, cache = "testdata")
 
     # In 1995, there should be 28 regular teams plus All Star teams (NLS + ALS)
@@ -54,6 +60,8 @@ test_that("Roster downloading works", {
 
 test_that("Game downloading works", {
 
+    skip_if_offline(host = "retrosheet.org")
+
     game <- getRetrosheet("game", 2012, cache = "testdata")
 
     # Each "game" has 161 different attributes
@@ -65,6 +73,8 @@ test_that("Game downloading works", {
 })
 
 test_that("Play downloading works", {
+
+    skip_if_offline(host = "retrosheet.org")
 
     play <- getRetrosheet("play", 2012, "SFN", cache = "testdata")
 

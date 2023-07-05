@@ -1,4 +1,7 @@
 test_that("getFileNames() returns the right result", {
+
+    skip_if_offline(host = "retrosheet.org")
+
     result <- getFileNames()
 
     # There are at least three different types of files available

@@ -1,5 +1,7 @@
 test_that("getTeamIDs returns the right number of teams", {
 
+    skip_if_offline(host = "retrosheet.org")
+
     teamids_2012 <- getTeamIDs(2012)
     # In 2012, there were 30 different teams
     # We use `expect_in()` because Retrosheet adds the All Star teams as well

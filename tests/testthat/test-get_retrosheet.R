@@ -1,9 +1,6 @@
 test_that("Caching works", {
 
-    if (httr::http_error("https://www.example.org")) {
-        message("Data source broken.")
-        return(NULL)
-    }
+    skip_if_offline(host = "retrosheet.org")
 
     # With caching
     schedule_1 <- get_retrosheet("schedule", 1995, cache = "testdata")
@@ -32,6 +29,8 @@ test_that("Caching works", {
 
 test_that("Schedule downloading works", {
 
+    skip_if_offline(host = "retrosheet.org")
+
     schedule <- get_retrosheet(type = "schedule", year = 1995, cache = "testdata")
     schedule_unnamed <- get_retrosheet("schedule", 1995, cache = "testdata")
     schedule_splits <- get_retrosheet(type = "schedule", year = 1995, schedSplit = "TimeOfDay")
@@ -59,6 +58,8 @@ test_that("Schedule downloading works", {
 
 test_that("Roster downloading works", {
 
+    skip_if_offline(host = "retrosheet.org")
+
     roster <- get_retrosheet("roster", 1995, cache = "testdata")
 
     # In 1995, there should be 28 regular teams plus All Star teams (NLS + ALS)
@@ -71,6 +72,8 @@ test_that("Roster downloading works", {
 
 test_that("Game downloading works", {
 
+    skip_if_offline(host = "retrosheet.org")
+
     game <- get_retrosheet("game", 2012, cache = "testdata")
 
     # Confirm the returned dataframe has the correct dimensions
@@ -79,6 +82,8 @@ test_that("Game downloading works", {
 })
 
 test_that("Play downloading works", {
+
+    skip_if_offline(host = "retrosheet.org")
 
     play <- get_retrosheet("play", 2012, "SFN", cache = "testdata")
 
@@ -101,6 +106,8 @@ test_that("Play downloading works", {
 })
 
 test_that("Data is cleaned up as expected", {
+
+    skip_if_offline(host = "retrosheet.org")
 
     game <- get_retrosheet("game", 2012, cache = "testdata")
 
