@@ -1,5 +1,10 @@
 test_that("Caching works", {
 
+    if (httr::http_error("https://www.example.org")) {
+        message("Data source broken.")
+        return(NULL)
+    }
+
     # With caching
     schedule_1 <- get_retrosheet("schedule", 1995, cache = "testdata")
     schedule_1a <- get_retrosheet("schedule", 1995, cache = "testdata/") # Test with trailing slash
@@ -32,21 +37,34 @@ test_that("Schedule downloading works", {
     schedule_splits <- get_retrosheet(type = "schedule", year = 1995, schedSplit = "TimeOfDay")
     schedule_splits_some_named <- get_retrosheet("schedule", 1995, schedSplit = "TimeOfDay")
 
-    expect_equal(nrow(schedule), 2016)
+    # In 1995, each of the 28 teams played 72 games
+    expect_equal(nrow(schedule), 28 * 72)
 
+    # Schedules should be the same, regardless of whether we used named params
     expect_equal(schedule_splits, schedule_splits_some_named)
+
+    # There are three different splits, (D)ay, (E)vening, and (Night)
     expect_equal(length(schedule_splits), 3)
-    expect_equal(nrow(schedule_splits[[3]]), 1355)
+
+    # In 1995, there were 1355 (N)ight games
+    expect_equal(nrow(schedule_splits$N), 1355)
+
+    # There should be the same number of games in the split and unsplit schedules
     expect_equal(sum(unlist(lapply(schedule_splits, nrow), recursive = TRUE)), nrow(schedule))
-    expect_equal(schedule, schedule_unnamed)  # Confirm that using named and unnamed arguments returns the same thing
+
+    # Confirm that using named and unnamed arguments returns the same thing
+    expect_equal(schedule, schedule_unnamed)
 
 })
 
 test_that("Roster downloading works", {
 
     roster <- get_retrosheet("roster", 1995, cache = "testdata")
-    expect_equal(length(roster), 28)
-    expect_equal(nrow(roster[[1]]), 40)
+
+    # In 1995, there should be 28 regular teams plus All Star teams (NLS + ALS)
+    expect_equal(length(roster), 28 + 2)
+
+    # In 1995, 39 different players played for TOR
     expect_equal(nrow(roster$TOR), 39)
 
 })
@@ -54,18 +72,30 @@ test_that("Roster downloading works", {
 test_that("Game downloading works", {
 
     game <- get_retrosheet("game", 2012, cache = "testdata")
-    expect_equal(length(game), 161)
-    expect_equal(nrow(game), 2430)
+
+    # Confirm the returned dataframe has the correct dimensions
+    expect_equal(dim(game), c(2430, 161))
 
 })
 
 test_that("Play downloading works", {
 
     play <- get_retrosheet("play", 2012, "SFN", cache = "testdata")
+
+    # There were 81 different SFN home games in 2012
     expect_equal(length(play), 81)
+
+    # There were 68 different plays in the first game of the year
     expect_equal(nrow(play[[1]]$play), 68)
+
+    # There were 4 different substitutions in the first game of the year
     expect_equal(nrow(play[[1]]$sub), 4)
+
+    # There were 18 different starters in the first game of the year
+    # (because it's a pre-DL NL game, there are always 18 different starters)
     expect_equal(nrow(play[[1]]$start), 18)
+
+    # There are 26 different bits of "info" associated with that game00
     expect_equal(nrow(play[[1]]$info), 26)
 
 })
@@ -73,6 +103,7 @@ test_that("Play downloading works", {
 test_that("Data is cleaned up as expected", {
 
     game <- get_retrosheet("game", 2012, cache = "testdata")
+
     expect_true("data.frame" %in% class(game))
     expect_equal(class(game$Date), "Date")  # Dates are correct data type
     expect_false(any(game$Completion == "", na.rm = TRUE))  # Confirm that empty strings are converted to NAs

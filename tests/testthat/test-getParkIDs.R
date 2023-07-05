@@ -41,5 +41,7 @@ test_that("getParkIDs returns the right results", {
                          "WNY01", "WOR01", "WOR02", "WOR03")
 
   expect_equal(ncol(park_ids), 2)
-  expect_true(all(expected_park_ids %in% park_ids$PARKID))  # Allows for more parks to be added without failing tests
+
+  # Allows for more parks to be added without failing tests
+  expect_in(expected_park_ids, park_ids$PARKID)
 })

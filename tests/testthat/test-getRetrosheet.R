@@ -44,8 +44,8 @@ test_that("Roster downloading works", {
 
     roster <- getRetrosheet("roster", 1995, cache = "testdata")
 
-    # In 1995, there were 28 teams
-    expect_equal(length(roster), 28)
+    # In 1995, there should be 28 regular teams plus All Star teams (NLS + ALS)
+    expect_equal(length(roster), 28 + 2)
 
     # Toronto has 39 players on their roster
     expect_equal(nrow(roster$TOR), 39)
