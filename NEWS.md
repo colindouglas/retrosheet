@@ -1,3 +1,8 @@
+# retrosheet 1.1.5
+  * Updated tests to account for addition of All Star teams to Retrosheet data
+  * Added checks to testing so it 'fails gracefully' when `retrosheet.org` is not available
+  * Improved documentation in tests
+
 # retrosheet 1.1.4
   * Updated tests to skip Rmarkdown tests on CRAN. Avoids pandoc dependency issues on Solaris and MacOS CRAN package checks.
 
