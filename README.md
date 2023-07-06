@@ -7,7 +7,7 @@ retrosheet
 status](https://github.com/colindouglas/retrosheet/workflows/R-CMD-check/badge.svg)](https://github.com/colindouglas/retrosheet/actions)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/retrosheet)](https://cran.r-project.org/package=retrosheet)
 [![License:
-MIT](https://img.shields.io/badge/license-GPL%20(%3E%3D%202)-blue.svg)](https://opensource.org/licenses/GPL-2.0)
+MIT](https://img.shields.io/badge/license-GPL%20(%3E%3D%202)-blue.svg)](https://opensource.org/license/gpl-2-0/)
 [![GitHub
 commit](https://img.shields.io/github/last-commit/colindouglas/retrosheet)](https://github.com/colindouglas/retrosheet/commit/main)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-week/retrosheet)](https://cran.r-project.org/package=retrosheet)
