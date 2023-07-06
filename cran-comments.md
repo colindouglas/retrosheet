@@ -2,6 +2,8 @@ A minor revision to resolve CRAN Package Check errors arising from changes to
 the structure of the source data. Package now also includes resource checks to
 ensure that tests 'fail gracefully' if retrosheet.org is not available.
 
+I have also updated the three URLs in the README with HTTP status codes >= 300.
+
 There are three unique NOTEs when building this package on R-Hub. My 
 understanding is that all three are related to issues with R-Hub, not the
 package. To be sure, I've also added testing via Github Actions to confirm.
