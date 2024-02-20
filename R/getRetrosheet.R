@@ -66,7 +66,7 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
         "game" = "/gamelogs/gl%d.zip",
         "play" = "/events/%deve.zip",
         "roster" = "/events/%deve.zip",
-        "schedule" = "/schedule/%dSKED.ZIP")
+        "schedule" = "/schedule/%dSKED.zip")
 
     # If cache is NA, download to a temp location
     if (is.na(cache)) {
@@ -107,7 +107,7 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
 
     if(type == "schedule") {
         zcon <- unz(tmp, filename = fname)
-        out <- read.csv(zcon, header = FALSE, col.names = retrosheetFields$schedule,
+        out <- read.csv(zcon, header = TRUE, col.names = retrosheetFields$schedule,
                         stringsAsFactors = stringsAsFactors)
         out <- out[!is.na(out$GameNo), ] # Filter out the last line, which is often parsed incorrectly
         if(is.character(schedSplit)) {

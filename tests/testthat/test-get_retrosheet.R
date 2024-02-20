@@ -23,7 +23,7 @@ test_that("Caching works", {
     expect_equal(play_1, play_2)
 
     # Re-using cached data should give a message about using a local cache
-    expect_message(get_retrosheet("schedule", 1995, cache = "testdata"), "Using local cache: testdata/schedule/1995SKED.ZIP")
+    expect_message(get_retrosheet("schedule", 1995, cache = "testdata"), "Using local cache: testdata/schedule/1995SKED.zip")
 
 })
 
@@ -62,8 +62,9 @@ test_that("Roster downloading works", {
 
     roster <- get_retrosheet("roster", 1995, cache = "testdata")
 
-    # In 1995, there should be 28 regular teams plus All Star teams (NLS + ALS)
-    expect_equal(length(roster), 28 + 2)
+    # In 1995, there should be 28 regular teams
+    # The two All Star teams (NLS + ALS) are no longer included in these data
+    expect_equal(length(roster), 28)
 
     # In 1995, 39 different players played for TOR
     expect_equal(nrow(roster$TOR), 39)
