@@ -24,10 +24,8 @@ character string identifying the date 'mmdd'}
 }
 \value{
 \itemize{
-\item{\code{getPartialGamelog}}{ - A data table with dimensions \code{length(date)} x \code{length(glFields)} if
-\code{date} is not NULL, otherwise the row dimension is the number of games for the given year.}
-\item{\code{gamelogFields}}{ - A character vector of possible values to choose from for the
-\code{glFlields} argument in \code{getPartialGamelog}.}
+\item \code{getPartialGamelog} - A data table with dimensions \code{length(date)} x \code{length(glFields)} if  \code{date} is not NULL, otherwise the row dimension is the number of games for the given year.
+\item \code{gamelogFields} - A character vector of possible values to choose from for the \code{glFlields} argument in \code{getPartialGamelog}.
 }
 }
 \description{
