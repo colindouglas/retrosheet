@@ -5,8 +5,8 @@
 
 [![R-CMD-check](https://github.com/colindouglas/retrosheet/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/colindouglas/retrosheet/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/retrosheet)](https://cran.r-project.org/package=retrosheet)
-[![License:
-MIT](https://img.shields.io/badge/license-GPL%20(%3E%3D%202)-blue.svg)](https://opensource.org/license/gpl-2-0/)
+[![License: GPL
+2.0](https://img.shields.io/badge/license-GPL%20(%3E%3D%202)-blue.svg)](https://opensource.org/license/gpl-2-0)
 [![GitHub
 commit](https://img.shields.io/github/last-commit/colindouglas/retrosheet)](https://github.com/colindouglas/retrosheet/commit/main)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-week/retrosheet)](https://cran.r-project.org/package=retrosheet)

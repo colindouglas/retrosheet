@@ -1,3 +1,8 @@
+# retrosheet 1.1.6
+  * Updated format of documentation to pass CRAN checks
+  * Updated `getRetrosheet()` to account for new paths on retrosheet.org
+  * Updated two tests to account for changed location of All Star Team rosters
+
 # retrosheet 1.1.5
   * Updated tests to account for addition of All Star teams to Retrosheet data
   * Added checks to testing so it 'fails gracefully' when `retrosheet.org` is not available
