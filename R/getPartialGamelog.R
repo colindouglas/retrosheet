@@ -31,8 +31,8 @@
 #'
 getPartialGamelog <- function(year, glFields, date = NULL) {
 
-    ## check 'glFields' against package variable 'retrosheetFields$gamelog'
-    if(identical(glFields, retrosheetFields$gamelog)) {
+    ## check 'glFields' against package variable 'retrosheetFields$game'
+    if(identical(glFields, retrosheetFields$game)) {
         stop(shQuote("getPartialGamelog"), " is for efficiently returning a small subset of the entire file. For the full table, use ", shQuote("getRetrosheet(\"game\", year)"))
     }
 
@@ -55,7 +55,7 @@ getPartialGamelog <- function(year, glFields, date = NULL) {
     on.exit(unlink(fname), add = TRUE)
 
     ## match 'glFields' against the internal name vector
-    sel <- union(1L, sort(match(glFields, retrosheetFields$gamelog)))
+    sel <- union(1L, sort(match(glFields, retrosheetFields$game)))
 
     ## read the data
     if(is.null(date)) {
@@ -80,7 +80,7 @@ getPartialGamelog <- function(year, glFields, date = NULL) {
     }
 
     ## set the names
-    names(out) <- retrosheetFields$gamelog[sel]
+    names(out) <- retrosheetFields$game[sel]
     ## return the table
     out
 }
