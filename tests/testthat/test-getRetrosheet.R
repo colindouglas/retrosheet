@@ -89,5 +89,42 @@ test_that("Play downloading works", {
 
 })
 
+test_that("Schedule parses pre-2024 format correctly", {
+
+    skip_if_offline(host = "retrosheet.org")
+
+    schedule <- getRetrosheet("schedule", 1995)
+
+    expect_equal(ncol(schedule), 12)
+    expect_false("Location" %in% names(schedule))
+
+})
+
+test_that("Schedule parses 2024+ format correctly", {
+
+    skip_if_offline(host = "retrosheet.org")
+
+    schedule <- getRetrosheet("schedule", 2025)
+
+    expect_equal(ncol(schedule), 13)
+    expect_true("Location" %in% names(schedule))
+    # 2025 season opened in Tokyo — some games should have a non-empty Location
+    expect_true(any(nchar(trimws(schedule$Location)) > 0, na.rm = TRUE))
+
+})
+
+test_that("Schedule loads for most recent completed season without error", {
+
+    skip_if_offline(host = "retrosheet.org")
+
+    most_recent_year <- as.integer(format(Sys.Date(), "%Y")) - 1
+    schedule <- getRetrosheet("schedule", most_recent_year)
+
+    expect_true(is.data.frame(schedule))
+    expect_gt(nrow(schedule), 0)
+    expect_true(all(c("Date", "HmTeam", "VisTeam", "GameNo") %in% names(schedule)))
+
+})
+
 # Delete any previously cached data
 unlink("testdata", recursive = TRUE)
