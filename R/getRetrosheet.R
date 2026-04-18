@@ -63,10 +63,10 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
     }
 
     path <- switch(type,
-        "game" = "/gamelogs/gl%d.zip",
-        "play" = "/events/%deve.zip",
-        "roster" = "/events/%deve.zip",
-        "schedule" = "/schedule/%dSKED.zip")
+                   "game" = "/gamelogs/gl%d.zip",
+                   "play" = "/events/%deve.zip",
+                   "roster" = "/events/%deve.zip",
+                   "schedule" = "/schedule/%dSKED.zip")
 
     # If cache is NA, download to a temp location
     if (is.na(cache)) {
@@ -105,10 +105,23 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
 
     fname <- unzip(tmp, list = TRUE)$Name
 
-    if(type == "schedule") {
+    if (type == "schedule") {
+
+        # Open the file, get the first row that contains the original names
         zcon <- unz(tmp, filename = fname)
-        out <- read.csv(zcon, header = TRUE, col.names = retrosheetFields$schedule,
-                        stringsAsFactors = stringsAsFactors)
+        unparsed_file <- readLines(zcon)
+        close(zcon)
+
+        original_cols <- unlist(strsplit(unparsed_file[[1]], ","))
+
+        # Read the unparsed CSV and use the correct column names
+        out <- read.csv(
+            text = paste(unparsed_file, collapse = "\n"),
+            header = FALSE, skip = 1L,
+            col.names = get_column_names(original_cols, type = "schedule"),
+            stringsAsFactors = stringsAsFactors
+        )
+
         out <- out[!is.na(out$GameNo), ] # Filter out the last line, which is often parsed incorrectly
         if(is.character(schedSplit)) {
             schedSplit <- match.arg(schedSplit, c("Date", "HmTeam", "TimeOfDay"))
@@ -116,19 +129,44 @@ getRetrosheet <- function(type, year, team, schedSplit = NULL, stringsAsFactors 
         }
         return(out)
     }
-    if(type == "game") {
+
+    if (type == "game") {
+
+        # Open the file, get the first row that contains the original names
         zcon <- unz(tmp, filename = fname)
-        out <- read.csv(zcon, header = FALSE, col.names = retrosheetFields$gamelog,
-            stringsAsFactors = stringsAsFactors)
+        unparsed_file <- readLines(zcon)
+        close(zcon)
+
+        original_cols <- unlist(strsplit(unparsed_file[[1]], ","))
+
+        # Read the unparsed CSV and use the correct column names
+        out <- read.csv(
+            text = paste(unparsed_file, collapse = "\n"),
+            header = FALSE,
+            col.names = get_column_names(original_cols, type = type),
+            stringsAsFactors = stringsAsFactors
+        )
         return(out)
     }
 
-    if(type == "roster") {
+    if (type == "roster") {
+
         rosFiles <- grep(".ROS", fname, value = TRUE, fixed = TRUE)
+
         read <- lapply(rosFiles, function(x) {
+
             zcon <- unz(tmp, filename = x)
-            o <- read.csv(zcon, header = FALSE, col.names = retrosheetFields$roster,
-                stringsAsFactors = stringsAsFactors)
+            unparsed_file <- strsplit(readLines(zcon), ",")
+            close(zcon)
+
+            original_cols <- unlist(strsplit(unparsed_file[[1]], ","))
+
+            o <- read.csv(
+                text = paste(unparsed_file, collapse = "\n"),
+                header = FALSE,
+                col.names = get_column_names(original_cols, type = type),
+                stringsAsFactors = stringsAsFactors
+            )
             o
         })
         out <- setNames(read, substr(rosFiles, 1L, 3L))
