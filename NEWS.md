@@ -1,3 +1,5 @@
+# retrosheet (development version)
+
 # retrosheet 1.1.7
   * New schedule format (2024 and beyond) is now parsed correctly
   * `retrosheetFields` object is now better formatted and more maintainable
