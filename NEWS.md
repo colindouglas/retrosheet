@@ -1,3 +1,8 @@
+# retrosheet 1.1.7
+  * New schedule format (2024 and beyond) is now parsed correctly
+  * `retrosheetFields` object is now better formatted and more maintainable
+  * Package is more future-proof against changes to the structure of Retrosheet data
+
 # retrosheet 1.1.6
   * Updated format of documentation to pass CRAN checks
   * Updated `getRetrosheet()` to account for new paths on retrosheet.org

@@ -1,50 +1,48 @@
-A minor revision to resolve CRAN Package Check note 'lost braces in \\itemize',
-as per change noted in second item: https://developer.r-project.org/blosxom.cgi/R-devel/NEWS/2023/10/11
+A patch revision that accounts for changes to the fields Retrosheet publishes in
+their schedule files. The way column names are handled is now better formatted
+and future-proof, so new columns should be handled automatically.
 
-Additionally, a remote path has been updated to reflect changed location of source data.
-
+Github Issue Checklist: https://github.com/colindouglas/retrosheet/issues/4
 
 ## Test environments 
-* locally
-    * Mint 21.1 Vera, R 4.3.2
-        * 0 errors ✓ | 0 warnings ✓ | 0 notes ✓
 
-* via winbuilder
-    * Windows Server 2022 x64, R Under development (unstable) (2024-02-19 r85946 ucrt)
-        * Status: OK
+### locally via `devtools::check(remote = TRUE, manual = TRUE)`
+    * Mint 22.1 Xia, R 4.5.3
+        * 0 errors ✔ | 0 warnings ✔ | 1 note ✖
 
-* via R-Hub
-    * Windows Server 2022, R-devel, 64 bit
-        * Status: 2 NOTEs
-    * Ubuntu Linux 20.04.1 LTS, R-release, GCC
-        * Status: 1 NOTE
-    * Fedora Linux, R-devel, clang, gfortran
-        * Status: 1 NOTE
+Note that the maintainer email has changed. Still the same person, just at a new
+address, as I migrate domains.
 
-* via Github Actions
-    * macos-latest (release)
-        * Status: OK
-    * windows-latest (release)
-        * Status: OK
-    * ubuntu-latest (devel)
-        * Status: OK
-    * ubuntu-latest (release)
-        * Status: OK
-    * ubuntu-latest (oldrel-1)
-        * Status: OK
+```
+❯ checking CRAN incoming feasibility ... [4s/14s] NOTE
+  Maintainer: ‘Colin Douglas <retrosheet@colindougl.as>’
+  
+  New maintainer:
+    Colin Douglas <retrosheet@colindougl.as>
+  Old maintainer(s):
+    Colin Douglas <colin@douglas.science>
+```
 
-## R-Hub Notes:
+### On winbuilder via `check_win_devel()`
 
-* On Windows R-devel: 
-    * NOTE 1: `Found the following files/directories: ''NULL''`
-    * NOTE 2: `Found the following files/directories: 'lastMiKTeXException'`
-    * Both notes seem to be related to bugs in R-Hub and can safely be ignored
-        * Note 1 issue: https://github.com/r-hub/rhub/issues/560
-        * Note 2 issue: https://github.com/r-hub/rhub/issues/503
-* On Ubuntu R-release and Fedora R-devel:
-    * NOTE: `Skipping checking HTML validation: no command 'tidy' found`
-        * This is an issue with R-Hub (I cannot add `tidy` to their path)
-        * Issue: https://github.com/r-hub/rhub/issues/548
+https://win-builder.r-project.org/lVd1Q97k172T
 
+```
+Check time in seconds: 74
+Status: 1 NOTE
+R version 4.6.0 RC (2026-04-17 r89914 ucrt)
+```
+
+(same note as above)
+
+### On Github Actions via 'check-standard'
+
+    * macos-latest (release): OK
+    * ubuntu-latest (devel): OK
+    * windows-latest (release): OK
+    * ubuntu-latest (release): OK
+    * ubuntu-latest (oldrel-1): OK
+    
 ## Downstream dependencies
+
 None
